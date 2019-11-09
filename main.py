@@ -1,8 +1,8 @@
 # Blackjack
+# Inspired by Engineer Man on Youtube
 # Resource:  https://www.youtube.com/watch?v=Tsof_J1S8QU&list=WL&index=7&t=1726s
-#
-# Original Version from Youtube
-# June 6, 2019
+# Updated:  2019-11-09
+# by:  Ryan Hawkins
 
 import random
 import os
