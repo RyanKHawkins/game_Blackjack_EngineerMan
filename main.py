@@ -36,64 +36,77 @@ cards = [
 "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
 ]
 
-random.shuffle(cards)
 
-dealer = []
-player = []
+def game_play():
 
-player.append(cards.pop())
-dealer.append(cards.pop())
-player.append(cards.pop())
-dealer.append(cards.pop())
+    random.shuffle(cards)
 
-standing = False
-first_hand = True
+    dealer = []
+    player = []
 
-while True:
+    player.append(cards.pop())
+    dealer.append(cards.pop())
+    player.append(cards.pop())
+    dealer.append(cards.pop())
 
-    player_score = calc_hand(player)
-    dealer_score = calc_hand(dealer)
+    standing = False
+    first_hand = True
 
-    if standing:
-        print("Dealer Cards:  [{}] ({})".format(']['.join(dealer), dealer_score))
-    else:
-        print("Dealer Cards:  [{}][?]".format(dealer[0]))
+    while True:
 
-    print("Your Cards:  [{}] ({})".format(']['.join(player), player_score))
-    print()
+        player_score = calc_hand(player)
+        dealer_score = calc_hand(dealer)
 
-    if standing:
-        if dealer_score > 21:
-            print("Dealer busted. You win.")
-        elif player_score == dealer_score:
-            print("Push. Nobody wins or loses.")
-        elif player_score > dealer_score:
-            print("You beat the dealer. You win.")
+        if standing:
+            print("Dealer Cards:  [{}] ({})".format(']['.join(dealer), dealer_score))
         else:
-            print("You lose.")
+            print("Dealer Cards:  [{}][?]".format(dealer[0]))
 
-        break
+        print("Your Cards:  [{}] ({})".format(']['.join(player), player_score))
+        print()
 
-    if first_hand and player_score == 21:
-        print("Blackjack! You win.")
-        break
+        if standing:
+            if dealer_score > 21:
+                print("Dealer busted. You win.")
+            elif player_score == dealer_score:
+                print("Push. Nobody wins or loses.")
+            elif player_score > dealer_score:
+                print("You beat the dealer. You win.")
+            else:
+                print("You lose.")
 
-    first_hand = False
+            break
 
-    if player_score > 21:
-        print("You busted!")
-        break
+        if first_hand and player_score == 21:
+            print("Blackjack! You win.")
+            break
 
-    print("What would you like to do?")
-    print(" [1] Hit")
-    print(" [2] Stand")
+        first_hand = False
 
-    print()
-    choice = input("Your choice: ")
+        if player_score > 21:
+            print("You busted!")
+            break
 
-    if choice == "1":
-        player.append(cards.pop())
-    elif choice == "2":
-        standing = True
-        while calc_hand(dealer) <= 16:
-            dealer.append(cards.pop())
+        print("What would you like to do?")
+        print(" [1] Hit")
+        print(" [2] Stand")
+
+        print()
+        choice = input("Your choice: ")
+
+        if choice == "1":
+            player.append(cards.pop())
+        elif choice == "2":
+            standing = True
+            while calc_hand(dealer) <= 16:
+                dealer.append(cards.pop())
+
+    play_choice = input("Would you like to play again? (Y/N):  ")
+    if play_choice.upper() in ["Y", "YES", "YEAH"]:
+        game_play()
+    else:
+        print("Thanks for playing.")
+        pass
+
+
+game_play()
